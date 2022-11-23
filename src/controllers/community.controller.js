@@ -89,7 +89,6 @@ exports.delete = async (req, res) => {
       res.status(404).json({ message: "Community not found!" });
     } else {
       const response = await CommunityModel.deleteOne({ communityName });
-      console.log(response);
       res.send({
         message: `Community with name ${communityName} was deleted successfully.`,
       });

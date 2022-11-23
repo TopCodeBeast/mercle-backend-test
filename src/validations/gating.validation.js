@@ -45,9 +45,9 @@ const update = (req, res, next) => {
 };
 
 const remove = (req, res, next) => {
-  const { userId } = req.params;
-  if (!isValidObjectId(userId)) {
-    return res.status(422).json({ message: "Not valid user id." });
+  const { gatingId } = req.params;
+  if (!isValidObjectId(gatingId)) {
+    return res.status(422).json({ message: "Not valid Gating id." });
   }
   next();
 };
