@@ -53,7 +53,6 @@ exports.update = async (req, res) => {
     if (!foundUser || foundUser.length === 0) {
       res.status(404).json({ message: "User not found!" });
     } else {
-      console.log(req.body);
       await UserModel.updateOne({ userId }, { ...req.body });
       res.send({ message: `User with id ${userId} was updated successfully.` });
     }

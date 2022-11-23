@@ -3,11 +3,16 @@ const router = express.Router();
 
 // import routes
 const userRoute = require("./user.route");
+const communityRoute = require("./community.route");
 
 const mainRoutes = [
   {
     path: "/users",
     route: userRoute,
+  },
+  {
+    path: "/communities",
+    route: communityRoute,
   },
 ];
 

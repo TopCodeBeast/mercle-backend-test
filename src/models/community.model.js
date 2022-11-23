@@ -4,12 +4,6 @@ const Schema = mongoose.Schema;
 
 const CommunitySchema = new Schema(
   {
-    communityId: {
-      type: String,
-      required: true,
-      unique: true,
-      dropDups: true,
-    },
     communityName: {
       type: String,
       required: true,
@@ -20,7 +14,10 @@ const CommunitySchema = new Schema(
       type: String,
       required: true,
     },
-    admins: [{ type: Schema.Types.ObjectId, required: true, ref: "user" }],
+    admins: {
+      type: [{ type: Schema.Types.ObjectId, required: true, ref: "user" }],
+      default: [],
+    },
   },
   { timestamps: true }
 );

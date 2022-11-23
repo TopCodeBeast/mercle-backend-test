@@ -1,16 +1,16 @@
 const create = (req, res, next) => {
   const { userId, userName, email, tokenAddresses } = req.body;
   if (!userId || userId.length === 0) {
-    res.status(422).json({ message: "User Id is not valid." });
+    return res.status(422).json({ message: "User Id is not valid." });
   }
   if (!userName || userName.length === 0) {
-    res.status(422).json({ message: "User Name is not valid." });
+    return res.status(422).json({ message: "User Name is not valid." });
   }
   if (!email || email.length === 0) {
-    res.status(422).json({ message: "Email is not valid." });
+    return res.status(422).json({ message: "Email is not valid." });
   }
   if (!tokenAddresses || !typeof tokenAddresses === "object") {
-    res.status(422).json({ message: "Token Addresses is not valid." });
+    return res.status(422).json({ message: "Token Addresses is not valid." });
   }
   next();
 };
