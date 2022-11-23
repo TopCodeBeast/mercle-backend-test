@@ -1,14 +1,25 @@
 const UserModel = require("../models").User;
 
-exports.create = async (req, res) => {
-  const { userId, userName, email, tokenAddresses } = req.body;
+exports.getAll = async (_, res) => {
   try {
-    // check if database already contains this name
-    const foundUser = await UserModel.find({ userId });
+    const users = await UserModel.find();
+    res.send(users);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Some error occurred while retrieving tutorials.",
+    });
+  }
+};
+
+exports.create = async (req, res) => {
+  const { userName, email, tokenAddresses } = req.body;
+  try {
+    // check if database already contains this email
+    const foundUser = await UserModel.find({ email });
 
     // if no user is found, we can add this user to the database.
     if (!foundUser || foundUser.length === 0) {
-      const user = new UserModel({ userId, userName, email, tokenAddresses });
+      const user = new UserModel({ userName, email, tokenAddresses });
       const response = await user.save();
       res.send(response);
     } else {
@@ -28,7 +39,7 @@ exports.read = async (req, res) => {
     const { userId } = req.params;
 
     // attempt to retrieve user
-    const foundUser = await UserModel.findOne({ userId });
+    const foundUser = await UserModel.findById(userId);
 
     // return 404 if no user found, return user otherwise.
     if (!foundUser || foundUser.length === 0) {
@@ -47,13 +58,13 @@ exports.update = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const foundUser = await UserModel.findOne({ userId });
+    const foundUser = await UserModel.findById(userId);
 
     // if no user found
     if (!foundUser || foundUser.length === 0) {
       res.status(404).json({ message: "User not found!" });
     } else {
-      await UserModel.updateOne({ userId }, { ...req.body });
+      await UserModel.findByIdAndUpdate(userId, { ...req.body });
       res.send({ message: `User with id ${userId} was updated successfully.` });
     }
   } catch (err) {
@@ -67,11 +78,11 @@ exports.delete = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const foundUser = await UserModel.findOne({ userId });
+    const foundUser = await UserModel.findById(userId);
     if (!foundUser || foundUser.length === 0) {
       res.status(404).json({ message: "User not found!" });
     } else {
-      const response = await UserModel.deleteOne({ userId });
+      const response = await UserModel.findByIdAndDelete(userId);
       console.log(response);
       res.send({ message: `User with id ${userId} was deleted successfully.` });
     }

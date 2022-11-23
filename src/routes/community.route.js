@@ -7,20 +7,23 @@ const { communityValidation } = require("../validations");
 // import controllers
 const { communityController } = require("../controllers");
 
-// create new user
+// get all communities
+router.get("/", communityController.getAll);
+
+// create new community
 router.post("/", communityValidation.create, communityController.create);
 
-// read user by id
+// read community by name
 router.get("/:communityName", communityController.read);
 
-// update user by name
+// update community by name
 router.put(
   "/:communityName",
   communityValidation.update,
   communityController.update
 );
 
-// delete user by name
+// delete community by name
 router.delete("/:communityName", communityController.delete);
 
 module.exports = router;

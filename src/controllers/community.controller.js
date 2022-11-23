@@ -1,5 +1,16 @@
 const CommunityModel = require("../models").Community;
 
+exports.getAll = async (_, res) => {
+  try {
+    const communities = await CommunityModel.find();
+    res.send(communities);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Some error occurred while retrieving tutorials.",
+    });
+  }
+};
+
 exports.create = async (req, res) => {
   const { communityName, displayName, admins } = req.body;
   try {

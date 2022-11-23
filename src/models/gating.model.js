@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const GatingSchema = new Schema(
   {
-    communityId: {
+    community: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "community",

@@ -1,8 +1,7 @@
+const { isValidObjectId } = require("mongoose");
+
 const create = (req, res, next) => {
-  const { userId, userName, email, tokenAddresses } = req.body;
-  if (!userId || userId.length === 0) {
-    return res.status(422).json({ message: "User Id is not valid." });
-  }
+  const { userName, email, tokenAddresses } = req.body;
   if (!userName || userName.length === 0) {
     return res.status(422).json({ message: "User Name is not valid." });
   }
@@ -15,7 +14,19 @@ const create = (req, res, next) => {
   next();
 };
 
+const read = (req, res, next) => {
+  const { userId } = req.params;
+  if (!isValidObjectId(userId)) {
+    return res.status(422).json({ message: "Not valid user id." });
+  }
+  next();
+};
+
 const update = (req, res, next) => {
+  const { userId } = req.params;
+  if (!isValidObjectId(userId)) {
+    return res.status(422).json({ message: "Not valid user id." });
+  }
   const updatingInfo = {};
   if (req.body.userName && req.body.userName.length > 0) {
     updatingInfo.userName = req.body.userName;
@@ -30,7 +41,17 @@ const update = (req, res, next) => {
   next();
 };
 
+const remove = (req, res, next) => {
+  const { userId } = req.params;
+  if (!isValidObjectId(userId)) {
+    return res.status(422).json({ message: "Not valid user id." });
+  }
+  next();
+};
+
 module.exports = {
   create,
+  read,
   update,
+  remove,
 };

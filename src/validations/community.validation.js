@@ -1,5 +1,7 @@
+const { isValidObjectId } = require("mongoose");
+
 const create = (req, res, next) => {
-  const { communityName, displayName, admins } = req.body;
+  const { communityName, displayName } = req.body;
   if (!communityName || communityName.length === 0) {
     return res.status(422).json({ message: "Community Name is not valid." });
   }

@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 const MemberSchema = new Schema(
   {
-    communityId: {
+    community: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "community",
     },
-    userId: {
+    user: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "user",
@@ -21,6 +21,7 @@ const MemberSchema = new Schema(
     },
     leaveDate: {
       type: Date,
+      default: null,
     },
   },
   { timestamps: true }
