@@ -13,7 +13,10 @@ const GatingSchema = new Schema(
       type: String,
       required: true,
     },
-    apis: [String],
+    api: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

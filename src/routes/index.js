@@ -5,6 +5,7 @@ const router = express.Router();
 const userRoute = require("./user.route");
 const communityRoute = require("./community.route");
 const memberRoute = require("./member.route");
+const gatingRoute = require("./gating.route");
 
 const mainRoutes = [
   {
@@ -18,6 +19,10 @@ const mainRoutes = [
   {
     path: "/member",
     route: memberRoute,
+  },
+  {
+    path: "/gating",
+    route: gatingRoute,
   },
 ];
 
