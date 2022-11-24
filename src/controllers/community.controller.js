@@ -1,4 +1,9 @@
+// import middleware
+const { tokenGatedMiddleware } = require("../middlewares");
+
+// import models
 const CommunityModel = require("../models").Community;
+const MemberModel = require("../models").Member;
 
 exports.getAll = async (_, res) => {
   try {
@@ -98,4 +103,17 @@ exports.delete = async (req, res) => {
       message: err.message || "Some error occurred while retrieving tutorials.",
     });
   }
+};
+
+exports.getMembers = async (req, res) => {
+  const { communityName } = req.params;
+  const foundCommunity = await CommunityModel.findOne({ communityName });
+  if (!foundCommunity) {
+    return res.status(422).json({ message: "Not a valid community name" });
+  }
+  const foundMembers = await MemberModel.find({
+    community: foundCommunity.id,
+  }).populate(["community", "user"]);
+
+  res.send(foundMembers);
 };
