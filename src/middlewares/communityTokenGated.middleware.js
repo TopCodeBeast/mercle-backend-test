@@ -19,11 +19,11 @@ const communityTokenGatedMiddleware = async (req, res, next) => {
   }
   const foundCommunity = await CommunityModel.findOne({ communityName });
   if (!foundCommunity) {
-    return res.status(422).json({ message: "Invalid community name." });
+    return res.status(404).json({ message: "Not found that url." });
   }
   const foundUser = await UserModel.findById(userId);
   if (!foundUser) {
-    return res.status(422).json({ message: "Invalid user id." });
+    return res.status(404).json({ message: "Not found that url." });
   }
 
   const foundGating = await GatingModel.findOne({
